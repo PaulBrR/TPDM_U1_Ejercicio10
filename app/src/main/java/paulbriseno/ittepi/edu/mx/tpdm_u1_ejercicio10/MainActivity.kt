@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     var img: ImageView? = null
     var vectorusario = Vector<String>()
     var vectorcontrase = Vector<String>()
+    var contador =0
 
     //var usuariopol :ImageView?=null
 
@@ -40,74 +41,54 @@ class MainActivity : AppCompatActivity() {
         usuario = findViewById(R.id.usuario)
         contrase = findViewById(R.id.contrasena)
         boton = findViewById(R.id.autenticar)
+        img=findViewById(R.id.ico1)
+
+        img?.setBackgroundResource(R.drawable.iconoa2)
         //usuariopol=findViewById(R.drawable.iconoa4)
 
         boton?.setOnClickListener {
 
-            if(usuario?.text.toString()=="pol"&&contrase?.text.toString()=="123"){
+            var log=false
+            var requestUsuario=usuario?.text.toString()
+            var requestContrase=contrase?.text.toString()
+            (0..(vectorusario.size-1)).forEach {
 
-                val alerta=AlertDialog.Builder(this)
-                val show = alerta.setTitle("ACEPTADO").setMessage("Bienvenido").show()
-
-                //img= iconoa4
-
-                return@setOnClickListener
-            }else {
-                val alerta = AlertDialog.Builder(this)
-                alerta.setTitle("Denegado").setMessage("Intentenuevamente").show()
-            }
-
-                if(usuario?.text.toString()=="gary"&&contrase?.text.toString()=="456"){
-
+                var usariocheck =vectorusario.get(it)
+                var contraseCheck=vectorcontrase.get(it)
+                if (requestUsuario.equals(usariocheck)&& requestContrase.equals(contraseCheck)){
                     val alerta=AlertDialog.Builder(this)
                     val show = alerta.setTitle("ACEPTADO").setMessage("Bienvenido").show()
+                    log=true
+                    if (it==0){
+                        img?.setBackgroundResource(R.drawable.iconoa4)
 
-                    //img= iconoa4
+                    }else if (it==1){
 
-                    return@setOnClickListener
-                }else {
-                    val alerta = AlertDialog.Builder(this)
-                    alerta.setTitle("Denegado").setMessage("Intentenuevamente").show()
-                }
-
-                    if(usuario?.text.toString()=="falco"&&contrase?.text.toString()=="789"){
-
-                        val alerta=AlertDialog.Builder(this)
-                        val show = alerta.setTitle("ACEPTADO").setMessage("Bienvenido").show()
-
-                        //img= iconoa4
-
-                        return@setOnClickListener
-                    }else {
-                        val alerta = AlertDialog.Builder(this)
-                        alerta.setTitle("Denegado").setMessage("Intentenuevamente").show()
+                        img?.setBackgroundResource(R.drawable.iconoa5)
+                    }else if (it==2){
+                        img?.setBackgroundResource(R.drawable.iconob3)
+                    }else if (it==3){
+                        img?.setBackgroundResource(R.drawable.iconob5)
+                    }else if (it==4){
+                        img?.setBackgroundResource(R.drawable.iconob7)
                     }
 
-                        if(usuario?.text.toString()=="rafiki"&&contrase?.text.toString()=="123"){
+                }
+            }
+            if(!log){
+                img?.setBackgroundResource(R.drawable.iconoa2)
+                contador++
+                val alerta = AlertDialog.Builder(this)
+                alerta.setTitle("Denegado").setMessage("Intentenuevamente  \n Intentos Restantes:  " + (3-contador) ).show()
+                if (contador==3){
+                    finish()
+                }
 
-                            val alerta=AlertDialog.Builder(this)
-                            val show = alerta.setTitle("ACEPTADO").setMessage("Bienvenido").show()
 
-                            //img= iconoa4
-
-                            return@setOnClickListener
-                        }else {
-                            val alerta = AlertDialog.Builder(this)
-                            alerta.setTitle("Denegado").setMessage("Intentenuevamente").show()
-                        }
-                        
-                            if(usuario?.text.toString()=="tamarindo"&&contrase?.text.toString()=="123"){
-
-                                val alerta=AlertDialog.Builder(this)
-                                val show = alerta.setTitle("ACEPTADO").setMessage("Bienvenido").show()
-
-                                //img= iconoa4
-
-                                return@setOnClickListener
-                            }else {
-                                val alerta = AlertDialog.Builder(this)
-                                alerta.setTitle("Denegado").setMessage("Intentenuevamente").show()
-                            }
+            }
+            log=false
+            usuario?.setText("")
+            contrase?.setText("")
 
 
         }
